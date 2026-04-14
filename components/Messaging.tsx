@@ -12,6 +12,7 @@ interface MessagingProps {
     onAddDocument: (document: StoredDocument) => void;
     onReportGenerated: (report: Report) => void;
     onConsumeTokens: (cost: number) => boolean;
+    onUnreadCountChange?: (count: number) => void;
 }
 
 interface Thread {
@@ -21,11 +22,12 @@ interface Thread {
     lastMessageAt: string;
 }
 
-const Messaging: React.FC<MessagingProps> = ({ user, userProfile, onAddDocument, onReportGenerated, onConsumeTokens }) => {
+const Messaging: React.FC<MessagingProps> = ({ user, userProfile, onAddDocument, onReportGenerated, onConsumeTokens, onUnreadCountChange }) => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [inputValue, setInputValue] = useState('');
     const [isAiEnabled, setIsAiEnabled] = useState(false);
     const [isAiThinking, setIsAiThinking] = useState(false);
+    const [unreadCount, setUnreadCount] = useState(0);
     
     // Thread State
     const [activeThreadId, setActiveThreadId] = useState<string | null>(null);
@@ -73,8 +75,19 @@ const Messaging: React.FC<MessagingProps> = ({ user, userProfile, onAddDocument,
 
                     // Mark all fetched messages as processed
                     msgs.forEach(m => processedMessageIds.current.add(m.id));
-                    
+
                     setMessages(prev => mergeMessages(prev, msgs));
+
+                    // Update unread count if we're not on the messaging view
+                    if (newIncomingMessages.length > 0) {
+                        setUnreadCount(prev => {
+                            const newCount = prev + newIncomingMessages.length;
+                            if (onUnreadCountChange) {
+                                onUnreadCountChange(newCount);
+                            }
+                            return newCount;
+                        });
+                    }
 
                     // Only trigger AI if enabled, not initial load, and we have new messages
                     if (isAiEnabled && !isInitialLoad && newIncomingMessages.length > 0) {
@@ -85,7 +98,7 @@ const Messaging: React.FC<MessagingProps> = ({ user, userProfile, onAddDocument,
                             handleAiAutoReply(lastMessage.content, lastMessage.threadId, lastMessage.subject);
                         }
                     }
-                    
+
                     if (isInitialLoad) {
                         setIsInitialLoad(false);
                     }

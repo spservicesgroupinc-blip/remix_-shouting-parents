@@ -34,6 +34,7 @@ const App: React.FC = () => {
     const [documents, setDocuments] = useState<StoredDocument[]>([]);
     const [userProfile, setUserProfile] = useState<UserProfileType | null>(null);
     const [incidentTemplates, setIncidentTemplates] = useState<IncidentTemplate[]>([]);
+    const [unreadMessageCount, setUnreadMessageCount] = useState(0);
     
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const [isAgentOpen, setIsAgentOpen] = useState(false);
@@ -238,6 +239,11 @@ const App: React.FC = () => {
             }
         }
 
+        // Clear unread count when navigating to messaging
+        if (newView === 'messaging') {
+            setUnreadMessageCount(0);
+        }
+
         if (newView !== 'new_report') setNewReportDate(null);
         setView(newView);
         setIsSidebarOpen(false);
@@ -425,12 +431,13 @@ const App: React.FC = () => {
                             onRefreshData={() => loadUserData(user.userId)}
                         />;
             case 'messaging':
-                return <Messaging 
-                            user={user} 
+                return <Messaging
+                            user={user}
                             userProfile={userProfile}
-                            onAddDocument={handleAddDocument} 
+                            onAddDocument={handleAddDocument}
                             onReportGenerated={handleReportGenerated}
                             onConsumeTokens={handleConsumeTokens}
+                            onUnreadCountChange={setUnreadMessageCount}
                         />;
             case 'timeline':
             default:
@@ -458,13 +465,14 @@ const App: React.FC = () => {
                  {isSidebarOpen && (
                     <div className="fixed inset-0 bg-black/50 z-40 lg:hidden" onClick={() => setIsSidebarOpen(false)} aria-hidden="true"></div>
                 )}
-                <Sidebar 
-                    activeView={view} 
-                    onViewChange={handleViewChange} 
+                <Sidebar
+                    activeView={view}
+                    onViewChange={handleViewChange}
                     reportCount={reports.length}
                     isOpen={isSidebarOpen}
                     onLogout={handleLogout}
                     userTier={userProfile?.tier}
+                    unreadMessageCount={unreadMessageCount}
                 />
                 <main className={`flex-1 ${isChatView ? 'p-0 sm:p-6 lg:p-8 flex flex-col' : 'p-4 sm:p-6 lg:p-8 overflow-y-auto'} pb-28 md:pb-6`}>
                     <div className={`mx-auto max-w-7xl w-full ${isChatView ? 'flex-1 min-h-0' : ''}`}>
@@ -477,10 +485,12 @@ const App: React.FC = () => {
                 </main>
             </div>
             
-            <BottomNav 
+            <BottomNav
                 activeView={view}
                 onViewChange={(v) => { handleViewChange(v); setIsSidebarOpen(false); }}
                 onMenuClick={() => setIsSidebarOpen(true)}
+                unreadMessageCount={unreadMessageCount}
+                onUnreadCountChange={setUnreadMessageCount}
             />
 
              {selectedReportIds.size > 0 && view === 'timeline' && (

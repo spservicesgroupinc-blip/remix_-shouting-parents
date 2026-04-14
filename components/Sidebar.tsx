@@ -11,6 +11,7 @@ interface SidebarProps {
     isOpen: boolean;
     onLogout: () => void;
     userTier?: SubscriptionTier;
+    unreadMessageCount?: number;
 }
 
 const NavItem: React.FC<{
@@ -20,7 +21,8 @@ const NavItem: React.FC<{
     onClick: () => void;
     disabled?: boolean;
     isLocked?: boolean;
-}> = ({ icon, label, isActive, onClick, disabled, isLocked }) => {
+    badge?: number;
+}> = ({ icon, label, isActive, onClick, disabled, isLocked, badge }) => {
     const baseClasses = "flex items-center justify-between w-full text-left px-3 py-2.5 rounded-md text-sm font-medium transition-all duration-150 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-950 relative";
     const activeClasses = "bg-blue-800 text-white font-semibold";
     const inactiveClasses = "text-gray-300 hover:bg-blue-900 hover:text-white";
@@ -36,12 +38,19 @@ const NavItem: React.FC<{
                 <div className="w-5 h-5 mr-3">{icon}</div>
                 <span>{label}</span>
             </div>
-            {isLocked && <LockClosedIcon className="w-4 h-4 text-yellow-500" />}
+            <div className="flex items-center gap-1">
+                {badge && badge > 0 && (
+                    <span className="bg-red-500 text-white text-xs font-bold rounded-full min-w-[1.25rem] h-5 px-1.5 flex items-center justify-center">
+                        {badge > 99 ? '99+' : badge}
+                    </span>
+                )}
+                {isLocked && <LockClosedIcon className="w-4 h-4 text-yellow-500" />}
+            </div>
         </button>
     );
 };
 
-const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, reportCount, isOpen, onLogout, userTier = 'Free' }) => {
+const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, reportCount, isOpen, onLogout, userTier = 'Free', unreadMessageCount = 0 }) => {
     return (
         <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-blue-950 border-r border-blue-800 p-4 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:relative lg:translate-x-0 lg:flex lg:flex-col`}>
             <div className="flex flex-col h-full pt-16 lg:pt-0">
@@ -69,6 +78,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, reportCount
                         label="Secure Messaging"
                         isActive={activeView === 'messaging'}
                         onClick={() => onViewChange('messaging')}
+                        badge={unreadMessageCount}
                     />
                     <NavItem
                         icon={<ChartBarIcon />}

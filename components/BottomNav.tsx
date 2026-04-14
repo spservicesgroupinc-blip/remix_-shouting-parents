@@ -7,9 +7,11 @@ interface BottomNavProps {
     activeView: View;
     onViewChange: (view: View) => void;
     onMenuClick: () => void;
+    unreadMessageCount?: number;
+    onUnreadCountChange?: (count: number) => void;
 }
 
-const BottomNav: React.FC<BottomNavProps> = ({ activeView, onViewChange, onMenuClick }) => {
+const BottomNav: React.FC<BottomNavProps> = ({ activeView, onViewChange, onMenuClick, unreadMessageCount = 0 }) => {
     return (
         <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 pointer-events-none pb-[env(safe-area-inset-bottom)]">
             <div className="bg-white/90 backdrop-blur-xl border-t border-gray-200/60 shadow-[0_-8px_30px_-15px_rgba(0,0,0,0.1)] pointer-events-auto">
@@ -37,9 +39,16 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onViewChange, onMenuC
                     {/* Messages */}
                     <button
                         onClick={() => onViewChange('messaging')}
-                        className={`flex flex-col items-center justify-center w-14 h-full touch-manipulation transition-colors ${activeView === 'messaging' ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
+                        className={`flex flex-col items-center justify-center w-14 h-full touch-manipulation transition-colors relative ${activeView === 'messaging' ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
                     >
-                        <ChatBubbleOvalLeftEllipsisIcon className={`w-6 h-6 ${activeView === 'messaging' ? 'stroke-2' : 'stroke-[1.5]'}`} />
+                        <div className="relative">
+                            <ChatBubbleOvalLeftEllipsisIcon className={`w-6 h-6 ${activeView === 'messaging' ? 'stroke-2' : 'stroke-[1.5]'}`} />
+                            {unreadMessageCount > 0 && (
+                                <span className="absolute -top-1.5 -right-1.5 bg-red-500 text-white text-[0.6rem] font-bold rounded-full min-w-[1rem] h-4 px-1 flex items-center justify-center leading-none">
+                                    {unreadMessageCount > 99 ? '99+' : unreadMessageCount}
+                                </span>
+                            )}
+                        </div>
                         <span className="text-[10px] font-medium mt-1">Chat</span>
                     </button>
 
