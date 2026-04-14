@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { HomeIcon, CalendarDaysIcon, PlusIcon, ChatBubbleOvalLeftEllipsisIcon, MenuIcon } from './icons';
+import { HomeIcon, PlusIcon, ChatBubbleOvalLeftEllipsisIcon, MenuIcon } from './icons';
 import { View } from '../types';
 
 interface BottomNavProps {
@@ -21,15 +21,6 @@ const BottomNav: React.FC<BottomNavProps> = ({ activeView, onViewChange, onMenuC
                     >
                         <HomeIcon className={`w-6 h-6 ${activeView === 'dashboard' ? 'stroke-2' : 'stroke-[1.5]'}`} />
                         <span className="text-[10px] font-medium mt-1">Home</span>
-                    </button>
-
-                    {/* Calendar */}
-                    <button
-                        onClick={() => onViewChange('calendar')}
-                        className={`flex flex-col items-center justify-center w-14 h-full touch-manipulation transition-colors ${activeView === 'calendar' ? 'text-blue-600' : 'text-gray-400 hover:text-gray-600'}`}
-                    >
-                        <CalendarDaysIcon className={`w-6 h-6 ${activeView === 'calendar' ? 'stroke-2' : 'stroke-[1.5]'}`} />
-                        <span className="text-[10px] font-medium mt-1">Calendar</span>
                     </button>
 
                     {/* New Report (Floating FAB) */}

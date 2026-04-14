@@ -721,7 +721,7 @@ const navigateToViewFunctionDeclaration: FunctionDeclaration = {
         properties: {
             view: {
                 type: Type.STRING,
-                description: `The view to navigate to. Must be one of: 'dashboard', 'timeline', 'new_report', 'patterns', 'insights', 'assistant', 'profile', 'documents', 'calendar'.`,
+                description: `The view to navigate to. Must be one of: 'dashboard', 'timeline', 'new_report', 'patterns', 'insights', 'assistant', 'profile', 'documents', 'messaging'.`,
             },
         },
         required: ['view'],

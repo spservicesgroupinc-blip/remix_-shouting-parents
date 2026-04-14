@@ -225,7 +225,7 @@ const AgentChat: React.FC<AgentChatProps> = ({ isOpen, onClose, onNavigate, user
                      {transcript.length === 0 && !currentUserInput && !currentModelOutput && status !== 'Connecting' && (
                         <div className="text-center text-gray-300 self-center">
                             <p>I can help you navigate the app or answer questions. Just ask!</p>
-                            <p className="text-xs mt-2 text-gray-400">Example: "Show me the calendar" or "What are the co-parenting laws in Indiana?"</p>
+                            <p className="text-xs mt-2 text-gray-400">Example: "Show me the timeline" or "What are the co-parenting laws in Indiana?"</p>
                         </div>
                     )}
                 </div>

@@ -167,4 +167,4 @@ export interface ParentingPlanTemplate {
     pattern: number[]; // 0 for Parent A, 1 for Parent B
 }
 
-export type View = 'dashboard' | 'timeline' | 'new_report' | 'patterns' | 'insights' | 'assistant' | 'profile' | 'documents' | 'calendar' | 'messaging';
+export type View = 'dashboard' | 'timeline' | 'new_report' | 'patterns' | 'insights' | 'assistant' | 'profile' | 'documents' | 'messaging';

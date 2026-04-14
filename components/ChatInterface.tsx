@@ -2,8 +2,7 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { ChatMessage, Report, GeneratedReportData, UserProfile, IncidentTemplate, IncidentCategory, StoredDocument, DocumentFolder } from '../types';
 import { getChatResponse, generateJsonReport, generateReportFromForm } from '../services/geminiService';
-import { PaperAirplaneIcon, PaperClipIcon, SparklesIcon, UserCircleIcon, CalendarDaysIcon, CheckCircleIcon, TagIcon, TrashIcon, ClockIcon, ChatBubbleOvalLeftEllipsisIcon, XMarkIcon, PlusIcon } from './icons';
-import Calendar from './Calendar';
+import { PaperAirplaneIcon, PaperClipIcon, SparklesIcon, UserCircleIcon, CheckCircleIcon, TagIcon, TrashIcon, ClockIcon, ChatBubbleOvalLeftEllipsisIcon, XMarkIcon, PlusIcon } from './icons';
 import { INCIDENT_CATEGORIES } from '../constants';
 
 interface ChatInterfaceProps {

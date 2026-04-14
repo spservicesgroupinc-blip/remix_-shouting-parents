@@ -10,7 +10,6 @@ import DeepAnalysis from './components/BehavioralInsights';
 import LegalAssistant from './components/LegalAssistant';
 import UserProfile from './components/UserProfile';
 import DocumentLibrary from './components/DocumentLibrary';
-import CalendarView from './components/CalendarView';
 import EvidencePackageBuilder from './components/EvidencePackageBuilder';
 import Dashboard from './components/Dashboard';
 import AgentChat from './components/AgentChat';
@@ -301,11 +300,6 @@ const App: React.FC = () => {
         });
     };
 
-    const handleCalendarDayClick = (date: Date) => {
-        setNewReportDate(date);
-        setView('new_report');
-    };
-
     const handleClearSelection = () => {
         setSelectedReportIds(new Set());
     };
@@ -430,16 +424,6 @@ const App: React.FC = () => {
                             userId={user.userId}
                             onRefreshData={() => loadUserData(user.userId)}
                         />;
-            case 'calendar':
-                return <CalendarView
-                            reports={reports}
-                            onDiscussIncident={handleDiscussIncident}
-                            onAnalyzeIncident={handleAnalyzeIncident}
-                            onDayClick={handleCalendarDayClick}
-                            {...selectionProps}
-                            userProfile={userProfile}
-                            user={user}
-                        />;
             case 'messaging':
                 return <Messaging 
                             user={user} 
@@ -499,7 +483,7 @@ const App: React.FC = () => {
                 onMenuClick={() => setIsSidebarOpen(true)}
             />
 
-             {selectedReportIds.size > 0 && (view === 'timeline' || view === 'calendar') && (
+             {selectedReportIds.size > 0 && view === 'timeline' && (
                 <div className="fixed bottom-24 md:bottom-6 right-6 z-30 flex items-center gap-3 no-print">
                     <button
                         onClick={handleClearSelection}

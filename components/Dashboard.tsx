@@ -3,7 +3,7 @@ import React from 'react';
 import { Report, UserProfile, IncidentCategory } from '../types';
 import { PlusIcon, CalendarDaysIcon, BookOpenIcon, LightBulbIcon, ChatBubbleOvalLeftEllipsisIcon, ClockIcon, SparklesIcon } from './icons';
 
-type View = 'dashboard' | 'timeline' | 'new_report' | 'patterns' | 'insights' | 'assistant' | 'profile' | 'documents' | 'calendar';
+type View = 'dashboard' | 'timeline' | 'new_report' | 'patterns' | 'insights' | 'assistant' | 'profile' | 'documents';
 
 interface DashboardProps {
     userProfile: UserProfile | null;

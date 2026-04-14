@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BookOpenIcon, ChartBarIcon, LightBulbIcon, PlusIcon, DocumentTextIcon, ScaleIcon, CalendarDaysIcon, HomeIcon, ChatBubbleOvalLeftEllipsisIcon, ArrowRightOnRectangleIcon, LockClosedIcon } from './icons';
+import { BookOpenIcon, ChartBarIcon, LightBulbIcon, PlusIcon, DocumentTextIcon, ScaleIcon, HomeIcon, ChatBubbleOvalLeftEllipsisIcon, ArrowRightOnRectangleIcon, LockClosedIcon } from './icons';
 import { View, SubscriptionTier } from '../types';
 
 
@@ -63,12 +63,6 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, reportCount
                         label="Restoration Log"
                         isActive={activeView === 'timeline'}
                         onClick={() => onViewChange('timeline')}
-                    />
-                     <NavItem
-                        icon={<CalendarDaysIcon />}
-                        label="Family Calendar"
-                        isActive={activeView === 'calendar'}
-                        onClick={() => onViewChange('calendar')}
                     />
                     <NavItem
                         icon={<ChatBubbleOvalLeftEllipsisIcon />}
