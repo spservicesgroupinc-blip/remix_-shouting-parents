@@ -431,13 +431,14 @@ const App: React.FC = () => {
                             onRefreshData={() => loadUserData(user.userId)}
                         />;
             case 'calendar':
-                return <CalendarView 
+                return <CalendarView
                             reports={reports}
                             onDiscussIncident={handleDiscussIncident}
                             onAnalyzeIncident={handleAnalyzeIncident}
                             onDayClick={handleCalendarDayClick}
                             {...selectionProps}
                             userProfile={userProfile}
+                            user={user}
                         />;
             case 'messaging':
                 return <Messaging 

@@ -15,7 +15,7 @@ interface CalendarViewProps {
     onToggleReportSelection: (reportId: string) => void;
     onDayClick: (date: Date) => void;
     userProfile?: UserProfile | null;
-    user?: User;
+    user: User;
 }
 
 // --- SUB-COMPONENTS ---
@@ -284,18 +284,18 @@ const CalendarView: React.FC<CalendarViewProps> = ({ reports, onDiscussIncident,
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [sharedEvents, setSharedEvents] = useState<SharedEvent[]>([]);
     const [activeTab, setActiveTab] = useState<'incidents' | 'shared'>('shared');
-    
+
     // Modals
     const [showEventModal, setShowEventModal] = useState(false);
     const [viewingEvent, setViewingEvent] = useState<SharedEvent | null>(null);
     const [eventToEdit, setEventToEdit] = useState<SharedEvent | null>(null);
     const [showPlanModal, setShowPlanModal] = useState(false);
-    
+
     // Plan Logic
     const [selectedTemplate, setSelectedTemplate] = useState<ParentingPlanTemplate | null>(null);
     const [planStartDate, setPlanStartDate] = useState(new Date().toISOString().split('T')[0]);
     const [myRoleInPattern, setMyRoleInPattern] = useState<'A' | 'B'>('A'); // Am I Parent A (0) or Parent B (1)?
-    
+
     const [showChallengeModal, setShowChallengeModal] = useState(false);
     const [imbalancePercent, setImbalancePercent] = useState(0);
     const [pendingEvents, setPendingEvents] = useState<SharedEvent[]>([]);
@@ -304,9 +304,9 @@ const CalendarView: React.FC<CalendarViewProps> = ({ reports, onDiscussIncident,
 
     useEffect(() => {
         if (userProfile?.linkedUserId || userProfile) {
-             api.getSharedEvents(user.userId).then(events => setSharedEvents(events || []));
+             api.getSharedEvents(userId).then(events => setSharedEvents(events || []));
         }
-    }, [userProfile, user.userId]);
+    }, [userProfile, userId]);
 
     const reportsByDate = useMemo(() => {
         const map = new Map<string, Report[]>();
