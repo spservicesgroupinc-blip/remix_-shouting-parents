@@ -208,27 +208,27 @@ export const PARENTING_PLAN_TEMPLATES: ParentingPlanTemplate[] = [
         name: '2-2-3 Schedule (50/50)',
         description: 'Equal time. Child spends 2 nights with A, 2 with B, then 3 with A. Swaps next week.',
         cycleLengthDays: 14,
-        pattern: [0,0, 1,1, 0,0,0, 1,1, 0,0, 1,1,1] 
+        pattern: [0,0, 1,1, 0,0,0, 1,1, 0,0, 1,1,1] // 14 elements
     },
     {
         id: '2-2-5-5',
         name: '2-2-5-5 Schedule (50/50)',
         description: 'Consistent weeknights. A has Mon/Tue, B has Wed/Thu. Weekends alternate.',
         cycleLengthDays: 14,
-        pattern: [0,0, 1,1, 0,0,0, 0,0, 1,1, 1,1,1] 
+        pattern: [0,0, 1,1, 0,0,0, 0,0, 1,1, 1,1,1] // 14 elements
     },
     {
         id: 'alt-weeks',
         name: 'Alternating Weeks (50/50)',
         description: '7 days with Parent A, then 7 days with Parent B.',
         cycleLengthDays: 14,
-        pattern: [0,0,0,0,0,0,0, 1,1,1,1,1,1,1]
+        pattern: [0,0,0,0,0,0,0, 1,1,1,1,1,1,1] // 14 elements
     },
     {
         id: 'eow',
         name: 'Every Other Weekend (80/20)',
         description: 'Standard "Visitor" schedule. Parent B has alternating weekends (Fri-Sun).',
         cycleLengthDays: 14,
-        pattern: [0,0,0,0, 1,1,1, 0,0,0,0,0,0,0] 
+        pattern: [0,0,0,0, 1,1,1, 0,0,0,0,0,0,0] // 14 elements
     }
 ];

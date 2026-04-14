@@ -280,6 +280,8 @@ const EventDetailsModal: React.FC<{
 // --- MAIN COMPONENT ---
 
 const CalendarView: React.FC<CalendarViewProps> = ({ reports, onDiscussIncident, onAnalyzeIncident, selectedReportIds, onToggleReportSelection, onDayClick, userProfile, user }) => {
+    console.log('[CalendarView] Rendering with:', { reports: reports.length, userProfile, user });
+    
     const [viewDate, setViewDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [sharedEvents, setSharedEvents] = useState<SharedEvent[]>([]);
@@ -299,14 +301,21 @@ const CalendarView: React.FC<CalendarViewProps> = ({ reports, onDiscussIncident,
     const [showChallengeModal, setShowChallengeModal] = useState(false);
     const [imbalancePercent, setImbalancePercent] = useState(0);
     const [pendingEvents, setPendingEvents] = useState<SharedEvent[]>([]);
+    const [loadError, setLoadError] = useState<string | null>(null);
 
     const userId = user.userId;
 
     useEffect(() => {
-        if (userProfile?.linkedUserId || userProfile) {
-             api.getSharedEvents(userId).then(events => setSharedEvents(events || []));
+        if (userId) {
+             api.getSharedEvents(userId)
+                .then(events => setSharedEvents(events || []))
+                .catch(error => {
+                    console.error('Failed to load shared events:', error);
+                    setLoadError(error.message || 'Failed to load calendar data');
+                    setSharedEvents([]);
+                });
         }
-    }, [userProfile, userId]);
+    }, [userId]);
 
     const reportsByDate = useMemo(() => {
         const map = new Map<string, Report[]>();
@@ -514,6 +523,18 @@ const CalendarView: React.FC<CalendarViewProps> = ({ reports, onDiscussIncident,
 
     return (
         <>
+            {loadError && (
+                <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-4">
+                    <p className="text-yellow-800 text-sm">⚠️ Calendar data failed to load: {loadError}</p>
+                    <button 
+                        onClick={() => { setLoadError(null); api.getSharedEvents(userId).then(events => setSharedEvents(events || [])).catch(e => setLoadError(e.message)); }}
+                        className="mt-2 px-3 py-1 bg-blue-900 text-white text-sm rounded hover:bg-blue-800 rounded"
+                    >
+                        Retry
+                    </button>
+                </div>
+            )}
+
             <EventModal 
                 isOpen={showEventModal} 
                 onClose={() => { setShowEventModal(false); setEventToEdit(null); }}
