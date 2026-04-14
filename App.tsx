@@ -18,6 +18,7 @@ import Messaging from './components/Messaging';
 import AuthScreen from './components/AuthScreen';
 import ScriptureModal from './components/ScriptureModal';
 import UpgradeModal from './components/UpgradeModal';
+import HelpPage from './components/HelpPage';
 import { Report, UserProfile as UserProfileType, StoredDocument, View, IncidentTemplate, User, SubscriptionTier } from './types';
 import { SparklesIcon } from './components/icons';
 import { api } from './services/api';
@@ -439,6 +440,8 @@ const App: React.FC = () => {
                             onConsumeTokens={handleConsumeTokens}
                             onUnreadCountChange={setUnreadMessageCount}
                         />;
+            case 'help':
+                return <HelpPage onNavigate={handleViewChange} />;
             case 'timeline':
             default:
                 return <IncidentTimeline 

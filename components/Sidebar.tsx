@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { BookOpenIcon, ChartBarIcon, LightBulbIcon, PlusIcon, DocumentTextIcon, ScaleIcon, HomeIcon, ChatBubbleOvalLeftEllipsisIcon, ArrowRightOnRectangleIcon, LockClosedIcon } from './icons';
+import { BookOpenIcon, ChartBarIcon, LightBulbIcon, PlusIcon, DocumentTextIcon, ScaleIcon, HomeIcon, ChatBubbleOvalLeftEllipsisIcon, ArrowRightOnRectangleIcon, LockClosedIcon, QuestionMarkCircleIcon } from './icons';
 import { View, SubscriptionTier } from '../types';
 
 
@@ -105,6 +105,12 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, reportCount
                         isActive={activeView === 'insights'}
                         onClick={() => onViewChange('insights')}
                         disabled={reportCount < 1}
+                    />
+                     <NavItem
+                        icon={<QuestionMarkCircleIcon />}
+                        label="Help & Guide"
+                        isActive={activeView === 'help'}
+                        onClick={() => onViewChange('help')}
                     />
                 </nav>
 
