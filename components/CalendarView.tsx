@@ -15,7 +15,7 @@ interface CalendarViewProps {
     onToggleReportSelection: (reportId: string) => void;
     onDayClick: (date: Date) => void;
     userProfile?: UserProfile | null;
-    user: User;
+    user?: User;
 }
 
 // --- SUB-COMPONENTS ---
