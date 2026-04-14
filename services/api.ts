@@ -1,7 +1,7 @@
 
 import { Report, StoredDocument, IncidentTemplate, UserProfile, User, Message, SharedEvent } from '../types';
 
-const DEFAULT_API_URL ='https://script.google.com/macros/s/AKfycbxXGJXK4XUV1YBzKRQV8knpOE_p3L_B45C--3GHtKkzBQ9DbCIbJYMzRqJp0Q-kIGHY/exec'
+const DEFAULT_API_URL ='https://script.google.com/macros/s/AKfycby1EdIpL-hFbV209Utj_wrHxeCH6JTtMxDk5ar_WS6z8LjEexBNAsly907X4eE31e2gJw/exec'
 let API_URL = DEFAULT_API_URL;
 
 export const setApiUrl = (url: string) => {

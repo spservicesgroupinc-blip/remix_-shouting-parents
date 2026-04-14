@@ -4,8 +4,6 @@ import { api, setApiUrl } from '../services/api';
 import { User } from '../types';
 import { BookOpenIcon, LockClosedIcon, CheckCircleIcon } from './icons';
 
-const DEFAULT_APPSCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxXGJXK4XUV1YBzKRQV8knpOE_p3L_B45C--3GHtKkzBQ9DbCIbJYMzRqJp0Q-kIGHY/exec';
-
 interface AuthScreenProps {
     onLogin: (user: User) => void;
     initialMode?: 'login' | 'signup';
@@ -14,7 +12,7 @@ interface AuthScreenProps {
 const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, initialMode = 'login' }) => {
     const [mode, setMode] = useState<'setup' | 'login' | 'signup'>(initialMode);
 
-    const [apiUrlInput, setApiUrlInput] = useState(DEFAULT_APPSCRIPT_URL);
+    const [apiUrlInput, setApiUrlInput] = useState('');
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -28,13 +26,7 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, initialMode = 'login' 
             return;
         }
         setApiUrl(apiUrlInput);
-        setMode('login');
-        setError('');
-    };
-
-    const handleSkipSetup = () => {
-        setApiUrl(DEFAULT_APPSCRIPT_URL);
-        setMode('login');
+        setMode('signup');
         setError('');
     };
 
@@ -90,9 +82,6 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, initialMode = 'login' 
                                 <li>Deploy as Web App (Execute as: Me, Access: Anyone).</li>
                                 <li>Paste the deployment URL below.</li>
                             </ol>
-                            <p className="mt-3 pt-3 border-t border-blue-200">
-                                <strong>Or use the default backend to get started immediately.</strong>
-                            </p>
                         </div>
 
                         <div>
@@ -108,20 +97,12 @@ const AuthScreen: React.FC<AuthScreenProps> = ({ onLogin, initialMode = 'login' 
 
                         {error && <p className="text-red-600 text-sm">{error}</p>}
 
-                        <div className="space-y-3">
-                            <button
-                                onClick={handleSetup}
-                                className="w-full py-3 bg-blue-950 text-white rounded-lg font-semibold hover:bg-blue-900 transition-colors"
-                            >
-                                Connect & Continue
-                            </button>
-                            <button
-                                onClick={handleSkipSetup}
-                                className="w-full py-3 bg-white text-blue-950 border-2 border-blue-950 rounded-lg font-semibold hover:bg-blue-50 transition-colors"
-                            >
-                                Use Default Backend
-                            </button>
-                        </div>
+                        <button
+                            onClick={handleSetup}
+                            className="w-full py-3 bg-blue-950 text-white rounded-lg font-semibold hover:bg-blue-900 transition-colors"
+                        >
+                            Connect & Continue
+                        </button>
                     </div>
                 </div>
             </div>
