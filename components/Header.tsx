@@ -43,7 +43,7 @@ const Header: React.FC<HeaderProps> = ({ onMenuClick, onProfileClick, onAgentCli
                            <BookOpenIcon className="h-8 w-8 text-white" />
                            <div className="ml-3 flex flex-col">
                                 <span className="text-xl font-semibold text-white tracking-tight leading-none">
-                                    CustodyX<span className="text-blue-400 font-medium">.ai</span>
+                                    ShoutingParents
                                 </span>
                                 <span className="text-[0.65rem] text-blue-200 uppercase tracking-wider leading-none mt-0.5">
                                     An R² Technologies Project

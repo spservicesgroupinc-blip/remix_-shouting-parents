@@ -110,7 +110,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, onViewChange, reportCount
 
                 <div className="flex-shrink-0 mt-4 p-2">
                      <div className="text-left">
-                        <h3 className="text-lg font-bold text-white">CustodyX<span className="text-blue-400 font-medium">.ai</span></h3>
+                        <h3 className="text-lg font-bold text-white">ShoutingParents</h3>
                         <p className="text-xs text-gray-400">Guided by Faith.</p>
                     </div>
                 </div>
